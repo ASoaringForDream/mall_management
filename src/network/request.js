@@ -8,6 +8,7 @@ export function request(config) {
   // axios拦截器
   // 拦截请求
   instance.interceptors.request.use((config)=>{
+    config.headers.Authorization = window.sessionStorage.getItem('token')
     return config
   },(err)=>{
     console.log(err);

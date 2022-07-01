@@ -86,7 +86,7 @@ export default {
         if (valid) {
           login(this.loginForm.username, this.loginForm.password).then(
             (res) => {
-              console.log(res);
+              // console.log(res);
               if (res.meta.status == 200) {
                 ElMessage({
                   showClose: true,

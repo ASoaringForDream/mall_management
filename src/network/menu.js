@@ -1,7 +1,7 @@
 import { request } from "./request";
-export function getAsideMenu(username,password) {
+export function getAsideMenu() {
   return request({
     url:'/menus',
-    type:'get'
+    method:'get'
   })
 }

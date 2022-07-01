@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { getAsideMenu } from "network/authority";
+import { getAsideMenu } from "network/menu.js";
 export default {
   name: "home",
   data() {
@@ -72,12 +72,13 @@ export default {
         this.$router.push("/login");
         return;
       }
-      console.log(res.data);
       this.menuList = res.data;
     });
   },
   methods: {
     logout() {
+      window.sessionStorage.removeItem('activePath')
+      this.defaultPath = ''
       this.$router.push("/login");
       ElMessage({
         showClose: true,
@@ -85,8 +86,7 @@ export default {
         type: "success",
         duration: 600,
       });
-      window.sessionStorage.removeItem('activePath',path)
-      this.defaultPath = ''
+      
     },
     toggleCollapse() {
       this.isCollapse = !this.isCollapse;
@@ -129,6 +129,7 @@ export default {
   .el-container {
     .el-aside {
       background-color: #b0c4de;
+      overflow: hidden;
       // background-image: linear-gradient(to bottom right, #5EFCE8 , #736EFE);
       .toggle_btn {
         width: 100%;

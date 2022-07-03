@@ -4,6 +4,7 @@
       <div class="avatar">
         <img src="~@/assets/img/avatar/avatar.jpg" alt="" />
       </div>
+      <!-- 登录表单 -->
       <el-form
         ref="loginForm"
         :model="loginForm"
@@ -43,10 +44,12 @@ export default {
   name: "login",
   data() {
     return {
+      // 登录表单信息
       loginForm: {
         username: "admin",
         password: "123456",
       },
+      // 验证规则
       loginFormRules: {
         username: [
           {
@@ -78,9 +81,11 @@ export default {
     };
   },
   methods: {
+    // 重置表单
     resetForm() {
       this.$refs.loginForm.resetFields();
     },
+    // 登录
     login() {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {

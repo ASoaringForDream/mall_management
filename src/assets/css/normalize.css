@@ -10,7 +10,9 @@
 
  html {
   line-height: 1.15; /* 1 */
-  -webkit-text-size-adjust: 100%; /* 2 */
+  /* min-width: 1366px; */
+  /* -webkit-text-size-adjust: 100%;  */
+  /* 2 */
 }
 
 /* Sections
@@ -22,8 +24,12 @@
 
 body {
   margin: 0;
+  /* min-width: 1366px; */
 }
 
+#app {
+  min-width: 1100px;
+}
 /**
  * Render the `main` element consistently in IE.
  */

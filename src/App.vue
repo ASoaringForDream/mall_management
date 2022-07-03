@@ -22,4 +22,7 @@ export default {
 </script>
 <style>
 @import "assets/css/normalize.css";
+  .el-main {
+    overflow:visible;
+  }
 </style>

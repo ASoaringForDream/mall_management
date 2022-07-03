@@ -1,5 +1,6 @@
 <template>
   <el-container>
+    <!-- 主页头部 -->
     <el-header>
       <div class="logo">
         <img src="~@/assets/img/logo/logo.png" alt="" />
@@ -7,7 +8,9 @@
       </div>
       <el-button type="info" @click="logout">退出</el-button>
     </el-header>
+    <!-- 主页主体 -->
     <el-container>
+      <!-- 主页侧边栏 -->
       <el-aside :width="isCollapse ? '64px' : '160px'">
         <div ref="toggle" class="toggle_btn" @click="toggleCollapse">》》《《</div>
         <el-menu
@@ -34,6 +37,7 @@
           </el-sub-menu>
         </el-menu>
       </el-aside>
+      <!-- 主页内容区域 -->
       <el-main>
         <router-view></router-view>
       </el-main>
@@ -47,7 +51,9 @@ export default {
   name: "home",
   data() {
     return {
+      // 菜单列表
       menuList: [],
+      // 左侧菜单栏对应图标
       icons: {
         125: "icon-users",
         103: "icon-tijikongjian",
@@ -60,7 +66,9 @@ export default {
     };
   },
   created() {
+    // 获取初始的菜单显示
     this.defaultPath = window.sessionStorage.getItem('activePath')
+    // 获取左侧菜单列表
     getAsideMenu().then((res) => {
       if (res.meta.status !== 200) {
         ElMessage({
@@ -76,8 +84,10 @@ export default {
     });
   },
   methods: {
+    // 退出登录
     logout() {
       window.sessionStorage.removeItem('activePath')
+      window.sessionStorage.removeItem('token')
       this.defaultPath = ''
       this.$router.push("/login");
       ElMessage({
@@ -88,6 +98,7 @@ export default {
       });
       
     },
+    // 左侧菜单栏显示风格切换
     toggleCollapse() {
       this.isCollapse = !this.isCollapse;
       if(this.isCollapse){
@@ -96,6 +107,7 @@ export default {
         this.$refs.toggle.textContent = '》》《《'
       }
     },
+    // 保存当前菜单
     saveNavStatus(path) {
       window.sessionStorage.setItem('activePath',path)
       this.defaultPath = path
@@ -106,7 +118,6 @@ export default {
 
 <style lang="less" scoped>
 .el-container {
-  width: 100vw;
   height: 100vh;
   .el-header {
     display: flex;
@@ -127,6 +138,7 @@ export default {
     }
   }
   .el-container {
+
     .el-aside {
       background-color: #b0c4de;
       overflow: hidden;

@@ -6,7 +6,7 @@ export function request(config) {
     timeout: 3000
   })
   // axios拦截器
-  // 拦截请求
+  // 拦截请求 携带token
   instance.interceptors.request.use((config)=>{
     config.headers.Authorization = window.sessionStorage.getItem('token')
     return config

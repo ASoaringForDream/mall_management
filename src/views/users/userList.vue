@@ -31,7 +31,7 @@
         </el-col>
       </el-row>
       <!-- 用户列表 -->
-      <el-table :data="userList" style="width: 100%" border>
+      <el-table :data="userList" style="width: 100%" border max-height="360px">
         <el-table-column fixed type="index" label="#" width="50" />
         <el-table-column fixed prop="username" label="名称" width="180" />
         <el-table-column prop="id" label="ID" width="120" />
@@ -189,11 +189,7 @@
           <p>当前用户:{{ checkedUser.username }}</p>
           <p>当前角色:{{ checkedUser.role_name }}</p>
           <p>
-            <el-select
-              v-model="checkedUser.roleId"
-              class="m-2"
-              placeholder="选择角色"
-            >
+            <el-select v-model="checkedUser.roleId" class="m-2" placeholder="选择角色">
               <el-option
                 v-for="item in rightsList"
                 :key="item.id"
@@ -373,12 +369,23 @@ export default {
     // 获取用户列表
     async getUserList(params = "") {
       params = params == "" ? this.queryInfo : params;
-      const { data } = await getUserList(params);
+      const { data, meta } = await getUserList(params);
       // console.log(data);
-      this.userList = data.users;
-      this.totalUser = data.total;
-      for (let item of this.userList) {
-        item.create_time = dataFormat(item.create_time);
+      if (meta.status == 200) {
+        this.userList = data.users;
+        this.totalUser = data.total;
+        for (let item of this.userList) {
+          item.create_time = dataFormat(item.create_time);
+        }
+      }else {
+        ElMessage({
+          showClose: true,
+          message: "拉取用户列表失败",
+          type: "error",
+          duration: 1000,
+        });
+        this.$router.push('/home')
+        window.sessionStorage.setItem('activePath','/home')
       }
     },
     // 改变用户状态
@@ -598,7 +605,7 @@ export default {
           this.checkedUser.id,
           this.checkedUser.roleId
         );
-        console.log(data,meta)
+        console.log(data, meta);
         if (meta.status == 200) {
           ElMessage({
             showClose: true,
@@ -616,7 +623,7 @@ export default {
           });
         }
         this.allocationRoleDialogShow = false;
-        this.checkedUser.roleId = ""
+        this.checkedUser.roleId = "";
       }
     },
     //关闭分配角色的对话框
@@ -645,9 +652,9 @@ export default {
       }
     },
     // 重置选择的角色Id
-    resetRoleId(){
-      this.checkedUser.roleId = ""
-    }
+    resetRoleId() {
+      this.checkedUser.roleId = "";
+    },
   },
   computed: {},
 };

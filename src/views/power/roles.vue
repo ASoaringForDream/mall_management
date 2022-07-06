@@ -305,6 +305,7 @@ export default {
           duration: 1000,
         });
         this.$router.push("/home");
+        window.sessionStorage.setItem('activePath','/home')
       }
     },
     // 关闭添加角色对话框

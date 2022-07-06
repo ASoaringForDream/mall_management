@@ -5,6 +5,8 @@ const welcome = () => import('views/welcome/welcome.vue')
 const userList = () => import('views/users/userList.vue')
 const rights = () => import('views/power/rights.vue')
 const roles = () => import('views/power/roles.vue')
+const categories = () => import('views/goods/categories.vue')
+const params = () => import('views/goods/params.vue')
 const routes = [
   {
     path:'/',
@@ -34,6 +36,14 @@ const routes = [
       {
         path:'/roles',
         component: roles
+      },
+      {
+        path:'/categories',
+        component: categories
+      },
+      {
+        path:'/params',
+        component: params
       },
     ]
   },

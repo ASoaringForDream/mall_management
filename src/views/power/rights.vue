@@ -55,6 +55,7 @@ export default {
           duration: 1000,
         });
         this.$router.push('/home')
+        window.sessionStorage.setItem('activePath','/home')
       }
     }
   },

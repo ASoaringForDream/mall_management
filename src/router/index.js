@@ -7,44 +7,54 @@ const rights = () => import('views/power/rights.vue')
 const roles = () => import('views/power/roles.vue')
 const categories = () => import('views/goods/categories.vue')
 const params = () => import('views/goods/params.vue')
+const goods = () => import('views/goods/goods.vue')
+const addGood = () => import('views/goods/addGood.vue')
 const routes = [
   {
-    path:'/',
+    path: '/',
     redirect: '/login'
   },
   {
-    path:'/login',
-    component:login
+    path: '/login',
+    component: login
   },
   {
-    path:'/home',
-    component:home,
-    redirect:'/welcome',
-    children:[
+    path: '/home',
+    component: home,
+    redirect: '/welcome',
+    children: [
       {
-        path:'/welcome',
-        component:welcome
+        path: '/welcome',
+        component: welcome
       },
       {
-        path:'/users',
+        path: '/users',
         component: userList
       },
       {
-        path:'/rights',
+        path: '/rights',
         component: rights
       },
       {
-        path:'/roles',
+        path: '/roles',
         component: roles
       },
       {
-        path:'/categories',
+        path: '/categories',
         component: categories
       },
       {
-        path:'/params',
+        path: '/params',
         component: params
       },
+      {
+        path: '/goods',
+        component: goods
+      },
+      {
+        path: '/goods/add',
+        component: addGood
+      }
     ]
   },
 ]
@@ -54,11 +64,11 @@ const router = createRouter({
   routes
 })
 
-router.beforeEach((to,from,next) => {
-  if(to.path === '/login')
+router.beforeEach((to, from, next) => {
+  if (to.path === '/login')
     return next()
   const token = window.sessionStorage.getItem('token')
-  if(!token){
+  if (!token) {
     return next('/login')
   }
   next()

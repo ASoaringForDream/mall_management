@@ -15,6 +15,7 @@
             placeholder="搜索内容"
             class="input-with-select"
             clearable
+            @blur="searchInputBlur()"
             @clear="getUserList()"
             size="large"
             v-model="queryInfo.query"
@@ -440,7 +441,15 @@ export default {
     },
     // 搜索用户事件
     search() {
-      this.searchUser(this.queryInfo);
+      this.getUserList(this.queryInfo);
+    },
+    // 搜索功能离开事件
+    searchInputBlur(){
+      if(this.queryInfo.query.trim() == ''){
+        this.getUserList()
+      }else {
+        this.search()
+      }
     },
     // 显示添加用户对话框
     showAddUserDialog() {

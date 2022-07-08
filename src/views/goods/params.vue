@@ -35,8 +35,8 @@
               <!-- 展开列 -->
               <el-table-column type="expand">
                 <template #default="{ row }">
-                  <el-tag size="large" v-for="tag,index in row.attr_vals" style="margin: 10px 30px" :key="tag" class="mx-1"
-                    closable :disable-transitions="false" @close="deleteCurrentParams(row,index)">
+                  <el-tag size="large" v-for="tag, index in row.attr_vals" style="margin: 10px 30px" :key="tag"
+                    class="mx-1" closable :disable-transitions="false" @close="deleteCurrentParams(row, index)">
                     {{ tag }}
                   </el-tag>
                   <el-input v-if="row.inputvisible" ref="inputParams" style="width: 150px; margin-left: 30px"
@@ -71,8 +71,8 @@
               <!-- 展开列 -->
               <el-table-column type="expand">
                 <template #default="{ row }">
-                  <el-tag size="large" v-for="tag,index in row.attr_vals" style="margin: 10px 30px" :key="tag" class="mx-1"
-                    closable :disable-transitions="false" @close="deleteCurrentAttrs(row,index)">
+                  <el-tag size="large" v-for="tag, index in row.attr_vals" style="margin: 10px 30px" :key="tag"
+                    class="mx-1" closable :disable-transitions="false" @close="deleteCurrentAttrs(row, index)">
                     {{ tag }}
                   </el-tag>
                   <el-input v-if="row.inputvisible" ref="inputAttrs" style="width: 150px; margin-left: 30px"
@@ -126,7 +126,7 @@
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="closeeditDialog()">取消</el-button>
-          <el-button type="primary" @click="editParams()">添加</el-button>
+          <el-button type="primary" @click="editParams()">编辑</el-button>
         </span>
       </template>
     </el-dialog>
@@ -231,6 +231,8 @@ export default {
         }
         this.attrs = res[0].data;
         for (let item of this.attrs) {
+          item.inputvisible = false
+          item.inputValue = ""
           if (item.attr_vals.trim() !== '') {
             item.attr_vals = item.attr_vals.split(",");
           } else {
@@ -264,7 +266,7 @@ export default {
       row.attr_vals.push(row.inputValue.trim())
       row.inputValue = ''
       row.inputvisible = false;
-      let { meta } = await editGoodsAttrs(this.selectedKeys[2], row.attr_id,{attr_name:row.attr_name,attr_sel:'many',attr_vals:row.attr_vals.join(',')})
+      let { meta } = await editGoodsAttrs(this.selectedKeys[2], row.attr_id, { attr_name: row.attr_name, attr_sel: 'many', attr_vals: row.attr_vals.join(',') })
       if (meta.status == 200) {
         ElMessage({
           type: "success",
@@ -280,10 +282,10 @@ export default {
       }
     },
     // 删除指定的动态参数选项
-    async deleteCurrentParams(row,index) {
+    async deleteCurrentParams(row, index) {
       // console.log(index)
       row.attr_vals.splice(index, 1)
-      let { meta } = await editGoodsAttrs(this.selectedKeys[2], row.attr_id,{attr_name:row.attr_name,attr_sel:'many',attr_vals:row.attr_vals.join(',')})
+      let { meta } = await editGoodsAttrs(this.selectedKeys[2], row.attr_id, { attr_name: row.attr_name, attr_sel: 'many', attr_vals: row.attr_vals.join(',') })
       if (meta.status == 200) {
         ElMessage({
           type: "success",
@@ -307,6 +309,7 @@ export default {
     },
     // 提交新增静态属性值
     async addAttrsConfirm(row) {
+      console.log(row)
       if (row.inputValue.trim() === '') {
         row.inputvisible = false;
         row.inputValue = ''
@@ -315,7 +318,7 @@ export default {
       row.attr_vals.push(row.inputValue.trim())
       row.inputValue = ''
       row.inputvisible = false;
-      let { meta } = await editGoodsAttrs(this.selectedKeys[2], row.attr_id,{attr_name:row.attr_name,attr_sel:'only',attr_vals:row.attr_vals.join(',')})
+      let { meta } = await editGoodsAttrs(this.selectedKeys[2], row.attr_id, { attr_name: row.attr_name, attr_sel: 'only', attr_vals: row.attr_vals.join(',') })
       if (meta.status == 200) {
         ElMessage({
           type: "success",
@@ -331,9 +334,9 @@ export default {
       }
     },
     // 删除指定的静态属性值
-    async deleteCurrentAttrs(row,index) {
+    async deleteCurrentAttrs(row, index) {
       row.attr_vals.splice(index, 1)
-      let { meta } = await editGoodsAttrs(this.selectedKeys[2], row.attr_id,{attr_name:row.attr_name,attr_sel:'only',attr_vals:row.attr_vals.join(',')})
+      let { meta } = await editGoodsAttrs(this.selectedKeys[2], row.attr_id, { attr_name: row.attr_name, attr_sel: 'only', attr_vals: row.attr_vals.join(',') })
       if (meta.status == 200) {
         ElMessage({
           type: "success",

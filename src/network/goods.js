@@ -69,3 +69,43 @@ export function deleteGoodsAttrs(id,attrId) {
     method: 'delete'
   })
 }
+// 获取商品列表
+export function getGoodsList(params) {
+  return request({
+    url: `/goods`,
+    method: 'get',
+    params
+  })
+}
+
+// 删除商品
+export function deleteGood(id) {
+  return request({
+    url: `/goods/${id}`,
+    method: 'delete'
+  })
+}
+
+// 删除商品
+export function addGood(data) {
+  return request({
+    url: `/goods`,
+    method: 'post',
+    data
+  })
+}
+// 通过id获取商品
+export function getGoodById(id) {
+  return request({
+    url: `/goods/${id}`,
+    method: 'get'
+  })
+}
+// 编辑商品
+export function editGood(id,data) {
+  return request({
+    url: `/goods/${id}`,
+    method: 'put',
+    data
+  })
+}

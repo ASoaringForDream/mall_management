@@ -9,6 +9,7 @@ const categories = () => import('views/goods/categories.vue')
 const params = () => import('views/goods/params.vue')
 const goods = () => import('views/goods/goods.vue')
 const addGood = () => import('views/goods/addGood.vue')
+const orders = () => import('views/order/orders.vue')
 const routes = [
   {
     path: '/',
@@ -54,6 +55,10 @@ const routes = [
       {
         path: '/goods/add',
         component: addGood
+      },
+      {
+        path: '/orders',
+        component: orders
       }
     ]
   },

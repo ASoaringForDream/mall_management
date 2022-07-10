@@ -207,6 +207,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.el-breadcrumb {
+  font-size: 12px;
+}
+
 .box-card {
   margin-top: 20px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);

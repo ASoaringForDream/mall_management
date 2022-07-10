@@ -1,4 +1,6 @@
 import axios from "axios";
+import nProgress from "nprogress";
+import 'nprogress/nprogress.css'
 export function request(config) {
   // 新建axios对象
   const instance = axios.create({
@@ -8,6 +10,7 @@ export function request(config) {
   // axios拦截器
   // 拦截请求 携带token
   instance.interceptors.request.use((config)=>{
+    nProgress.start()
     config.headers.Authorization = window.sessionStorage.getItem('token')
     return config
   },(err)=>{
@@ -15,6 +18,7 @@ export function request(config) {
   })
   // 拦截响应
   instance.interceptors.response.use(res=>{
+    nProgress.done()
     return res.data
   },err=>{
     console.log(err);
